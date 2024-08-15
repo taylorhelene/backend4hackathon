@@ -33,7 +33,7 @@ const {
 console.log("App listen at port 5050");
 app.use(express.json());
 app.use(cors());
-app.get("/login", (req, resp) => {
+app.post("/login", (req, resp) => {
 
  
     User.findOne({email: req.body.email })
