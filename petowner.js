@@ -11,6 +11,12 @@ const UserSchema = new mongoose.Schema({
         required: true,
         unique: true,
     },
+    pet: {
+        type: String,
+    },
+    petnumber: {
+        type: Number,
+    },
     password: {
         type: String
     },
@@ -27,17 +33,16 @@ const UserSchema = new mongoose.Schema({
     {
         type: Number,
     },
-    date: {
-        type: Date,
-        default: Date.now,
-    },
     messages:{
         type: Array,
         default : [],
     },
+    date: {
+        type: Date,
+    },
 });
-const User = mongoose.model('Carer', UserSchema);
-User.createIndexes();
+const User2 = mongoose.model('PetOwner', UserSchema);
+User2.createIndexes();
 
-module.exports = User;
+module.exports = User2;
 
