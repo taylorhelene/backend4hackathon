@@ -51,16 +51,13 @@ app.post("/login", (req, resp) => {
           console.log(err);
     });
 });
-app.patch("/edit", (req, resp) => {
-
- 
-  User.findOneAndUpdate({email: req.body.email },{name:req.body.name, password:req.body.password, location:req.body.location},{returnNewDocument:true})
-  .then((docs)=>{
-          resp.send(docs)
-  })
-  .catch((err)=>{
+app.patch("/edit", async(req, resp) => {
+    try{
+      let ans = await User.findOneAndUpdate({email: req.body.email },{name:req.body.name, password:req.body.password, location:req.body.location},{returnNewDocument:true})
+      resp.send(ans)
+    }catch(err){
         console.log(err);
-  });
+    }  
 });
 
 app.post("/delete", (req, resp) => {
@@ -77,11 +74,13 @@ app.post("/delete", (req, resp) => {
 app.get("/carers", async(req, resp) => {
 
   try {
-    const users = await User.find({});
-    resp.send(users);
+    User.find({}).then((data)=>{
+      resp.send(data);
+    })
+    
   } catch (error) {
     console.error(error);
-    resp.status(500).send(error);
+    resp.status(500).send(null);
   }
 });
 
